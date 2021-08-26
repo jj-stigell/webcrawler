@@ -11,14 +11,16 @@ def main():
     grammar_tables = []  # grammar tables in html format
 
     # TODO go through all grammar pages, function that gives new url to driver, implement in loop?
-    driver.get(
-        "https://jlptsensei.com/learn-japanese-grammar/%e3%81%93%e3%81%a8%e3%81%a0%e3%81%8b%e3%82%89-koto-dakara-meaning/")
+    driver.get("https://jlptsensei.com/learn-japanese-grammar/%e4%b8%ad%e3%82%92-%e4%b8%ad%e3%81%a7%e3%81%af-naka-o-naka-dewa-meaning/")
 
     content = driver.page_source
     soup = BeautifulSoup(content, features="html.parser")
 
     grammar = soup.find('div', class_='grammar-notes my-3')  # search the grammar information
     grammar_table = soup.find('table', class_='table table-bordered table-sm usage')
+
+    split_grammar = grammar.text.split('Click the', 1)  # delete the advertisement and everything after that
+    stripped_grammar_point = split_grammar[0].replace(';', ',')  # replace ; with , so there is no problems with csv
 
     i = 1
     text = 'example_'
@@ -30,7 +32,7 @@ def main():
             sentences_jpn.append(sentence_jpn.text)
             sentence_eng = a.find('div', class_='alert alert-primary')
             sentences_eng.append(sentence_eng.text)
-            grammar_rules.append(grammar.text)
+            grammar_rules.append(stripped_grammar_point)
             grammar_tables.append(grammar_table)
         i += 1
 
