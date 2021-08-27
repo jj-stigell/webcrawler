@@ -12,7 +12,7 @@ def get_grammar_page(first_page, start_page, end_page):
 
     #  in form: https://jlptsensei.com/jlpt-n2-grammar-list/page/, 40 grammar points per page
     for i in range(start_page, end_page + 1):  # go through all pages one by one, one page has 40 grammar pages
-        print('Working on page' + str(i))
+        print('Working on page ' + str(i))
         page_to_open = first_page + str(i)
         driver.get(page_to_open)
 
@@ -29,18 +29,20 @@ def get_grammar_page(first_page, start_page, end_page):
 
 def current_grammar_rule(link):
 
+    i = 1
+    text = 'example_'
+
     driver.get(link)
     content = driver.page_source
     soup = BeautifulSoup(content, features="html.parser")
-
     grammar = soup.find('div', class_='grammar-notes my-3')  # search the grammar information
     grammar_table = soup.find('table', class_='table table-bordered table-sm usage')
 
-    split_grammar = grammar.text.split('Click the', 1)  # delete the advertisement and everything after that
-    stripped_grammar_point = split_grammar[0].replace(';', ',')  # replace ; with , so there is no problems with csv
-
-    i = 1
-    text = 'example_'
+    try:
+        split_grammar = grammar.text.split('Click the', 1)  # delete the advertisement and everything after that
+        stripped_grammar_point = split_grammar[0].replace(';', ',')  # replace ; with , so there is no problems with csv
+    except AttributeError:
+        print("Problem deleting the advertisement\n")
 
     while i < 10:
         search = text + str(i)  # example_1, example_2 etc. for all example sentences
