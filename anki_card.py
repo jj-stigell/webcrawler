@@ -12,7 +12,7 @@ def get_grammar_page(first_page, start_page, end_page):
 
     #  in form: https://jlptsensei.com/jlpt-n2-grammar-list/page/, 40 grammar points per page
     for i in range(start_page, end_page + 1):  # go through all pages one by one, one page has 40 grammar pages
-        print('Working on page' + i)
+        print('Working on page' + str(i))
         page_to_open = first_page + str(i)
         driver.get(page_to_open)
 
