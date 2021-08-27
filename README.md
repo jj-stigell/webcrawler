@@ -7,7 +7,6 @@ It is recommended to install adblock for the browser used, because the website i
 
 Other notes:
 
-
 Suurien tietomäärien keruuseen verkkosivuilta.
 Strukturoidaan kerätty tieto esim csv tiedostoon.
 
