@@ -27,10 +27,22 @@ def get_grammar_page(first_page, start_page, end_page):
             current_grammar_rule(grammar_x)
             x += 1
 
+def generate_sentence_cards(soup, grammar_point, grammar_table):
+    # generate the cards from current pages examples
+    text = 'example_'
+
+    for y in range(1, 12):
+        search = text + str(y)  # example_1, example_2 etc. for all example sentences, blank ones left out.
+        for a in soup.find_all(id=search):
+            sentence_jpn = a.find('p', class_='m-0 jp')
+            sentences_jpn.append(sentence_jpn.text)
+            sentence_eng = a.find('div', class_='alert alert-primary')
+            sentences_eng.append(sentence_eng.text)
+            grammar_rules.append(grammar_point)
+            grammar_tables.append(grammar_table)
+
 
 def current_grammar_rule(link):
-
-    text = 'example_'
 
     driver.get(link)
     content = driver.page_source
@@ -41,18 +53,11 @@ def current_grammar_rule(link):
     try:
         split_grammar = grammar.text.split('Click the', 1)  # delete the advertisement and everything after that
         stripped_grammar_point = split_grammar[0].replace(';', ',')  # replace ; with , so there is no problems with csv
+        generate_sentence_cards(soup, stripped_grammar_point, grammar_table)
     except AttributeError:
-        print("Problem deleting the advertisement\n")
-
-    for y in range(1, 12):
-        search = text + str(y)  # example_1, example_2 etc. for all example sentences
-        for a in soup.find_all(id=search):
-            sentence_jpn = a.find('p', class_='m-0 jp')
-            sentences_jpn.append(sentence_jpn.text)
-            sentence_eng = a.find('div', class_='alert alert-primary')
-            sentences_eng.append(sentence_eng.text)
-            grammar_rules.append(stripped_grammar_point)
-            grammar_tables.append(grammar_table)
+        print("Problem deleting the advertisement, manually add the grammar explanation\n")
+        stripped_grammar_point = "Problem deleting the advertisement, manually add the grammar explanation"
+        generate_sentence_cards(soup, stripped_grammar_point, grammar_table)
 
 
 def generate_csv(sentences_jpn, sentences_eng, grammar_rules, grammar_tables):
