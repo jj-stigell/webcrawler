@@ -3,6 +3,17 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 
+def get_next_grammar():
+    pass
+
+
+
+def generate_csv(sentences_jpn, sentences_eng, grammar_rules, grammar_tables):
+    df = pd.DataFrame({'Expression': sentences_jpn, 'Meaning': sentences_eng, 'Vocabulary': grammar_rules, 'Table': grammar_tables})
+    df.to_csv('cards.csv', index=False, encoding='utf-8')
+    return True
+
+
 def main():
     driver = webdriver.Chrome("/home/jj-stigell/Downloads/chromedriver")  # path to chromedriver, change if needed
     sentences_jpn = []  # sentences in japanese
@@ -11,7 +22,8 @@ def main():
     grammar_tables = []  # grammar tables in html format
 
     # TODO go through all grammar pages, function that gives new url to driver, implement in loop?
-    driver.get("https://jlptsensei.com/learn-japanese-grammar/%e4%b8%ad%e3%82%92-%e4%b8%ad%e3%81%a7%e3%81%af-naka-o-naka-dewa-meaning/")
+    # TODO add grammar point title so it will be easier to find grammar page if manual fixing required
+    driver.get("https://jlptsensei.com/learn-japanese-grammar/%e3%81%8b%e3%81%ad%e3%81%aa%e3%81%84-kanenai-meaning/")
 
     content = driver.page_source
     soup = BeautifulSoup(content, features="html.parser")
@@ -36,8 +48,10 @@ def main():
             grammar_tables.append(grammar_table)
         i += 1
 
-    df = pd.DataFrame({'Expression': sentences_jpn, 'Meaning': sentences_eng, 'Vocabulary': grammar_rules, 'Table': grammar_tables})
-    df.to_csv('cards.csv', index=False, encoding='utf-8')
+    if generate_csv(sentences_jpn, sentences_eng, grammar_rules, grammar_tables):
+        print("New csv created succesfully")
+    else:
+        print("something went wrong, terminating the process")
 
 
 main()
