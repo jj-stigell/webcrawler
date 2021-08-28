@@ -1,17 +1,12 @@
 # webcrawler for JLPTsensei.com
 
 Goes through all grammar points at specified pages on jlptsensei.com.
-Creates csv file that includes all grammar rules and example sentences (jpn/eng) related to the grammar rule.
+Creates structured csv file that includes all grammar rules and example sentences (jpn/eng) related to the grammar rule.
 
-It is recommended to install adblock for the browser used, because the website is bloated with advertisements.
+It is recommended to install adblock for the browser used, because the jlptsensei website is bloated with advertisements.
 
 Other notes:
-
-Suurien tietomäärien keruuseen verkkosivuilta.
-Strukturoidaan kerätty tieto esim csv tiedostoon.
-
-Verkkosivu voi määritellä robot.txt tiedostossaan onko keräily sallittua.
-verkkosivu.com/robots.txt
+- robot.txt defines if scraping allowed on specific website. website.com/robot.txt
 
 To extract data using web scraping with python, you need to follow these basic steps:
 
