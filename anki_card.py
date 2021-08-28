@@ -53,7 +53,8 @@ def current_grammar_rule(link):
     try:
         split_grammar = grammar.text.split('Click the', 1)  # delete the advertisement and everything after that
         stripped_grammar_point = split_grammar[0].replace(';', ',')  # replace ; with , so there is no problems with csv
-        generate_sentence_cards(soup, stripped_grammar_point, grammar_table)
+        final_grammar_point = stripped_grammar_point.split('Learn Japanese grammar: ', 1)  # delete unnecessary text
+        generate_sentence_cards(soup, final_grammar_point[1], grammar_table)
     except AttributeError:
         stripped_grammar_point = "Problem deleting the advertisement, manually add the grammar explanation"
         print(stripped_grammar_point)
@@ -62,7 +63,7 @@ def current_grammar_rule(link):
 
 def generate_csv(sentences_jpn, sentences_eng, grammar_rules, grammar_tables, level, start, end):
     df = pd.DataFrame({'Expression': sentences_jpn, 'Meaning': sentences_eng, 'Vocabulary': grammar_rules, 'Table': grammar_tables})
-    filename = "JLPT_N" + str(level) + "_page_" + str(start) + "_to_" + str(end) + ".csv"   #jlpt_NX_page_X_to_X.csv
+    filename = "JLPT_N" + str(level) + "_page_" + str(start) + "_to_" + str(end) + ".csv"  # jlpt_NX_page_X_to_X.csv
     df.to_csv(filename, index=False, encoding='utf-8')
     return True
 
@@ -73,13 +74,13 @@ def main():
     first_page = str(input("Give the first page link:\n"))
     start_page = int(input("Give the number of first page:\n"))
     end_page = int(input("Give the number of last page:\n"))
-    N_level = int(input("JLPT level N:\n"))
+    n_level = int(input("JLPT level N:\n"))
 
     start_time = time.time()
     get_grammar_page(first_page, start_page, end_page)
     elapsed_time = time.time() - start_time
 
-    if generate_csv(sentences_jpn, sentences_eng, grammar_rules, grammar_tables, N_level, start_page, end_page):
+    if generate_csv(sentences_jpn, sentences_eng, grammar_rules, grammar_tables, n_level, start_page, end_page):
         print("New csv created successfully, elapsed time: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
     else:
         print("something went wrong, terminating the process")
