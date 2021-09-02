@@ -3,7 +3,9 @@
 Goes through all grammar points at specified pages on jlptsensei.com.
 Creates structured csv file that includes all grammar rules and example sentences (jpn/eng) related to the grammar rule.
 
-It is recommended to install adblock for the browser used, because the jlptsensei website is bloated with advertisements.
+Adblock (ublock origin) extension load added to increase performance. Jlptsensei website is bloated with advertisements,
+which slows the progress significantly. In linux OS (ubuntu derivatives) path to Chrome extensions is /home/USER/.config/google-chrome/Default/Extensions/. 
+Ublock folder name 'cjpalhdlnbpafiamejdnhcphjbkeiagm'
 
 Other notes:
 - robot.txt defines if scraping allowed on specific website. website.com/robot.txt
