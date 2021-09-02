@@ -1,9 +1,15 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
 
-driver = webdriver.Chrome("/home/jj-stigell/Downloads/chromedriver")  # path to chromedriver, change if needed
+path_to_extension = r'/home/jj-stigell/.config/google-chrome/Default/Extensions/cjpalhdlnbpafiamejdnhcphjbkeiagm/1.37.2_0/'
+chrome_options = Options()
+chrome_options.add_argument('load-extension=' + path_to_extension)
+driver = webdriver.Chrome("/usr/bin/chromedriver", options=chrome_options)  # path to chromedriver, change if needed
+driver.create_options()
+
 sentences_jpn = []  # sentences in japanese
 sentences_eng = []  # sentences in english
 grammar_rules = []  # grammar points in text
