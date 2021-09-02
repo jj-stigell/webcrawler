@@ -7,8 +7,12 @@ Adblock (ublock origin) extension load added to increase performance. Jlptsensei
 which slows the progress significantly. In linux OS (ubuntu derivatives) path to Chrome extensions is /home/USER/.config/google-chrome/Default/Extensions/. 
 Ublock folder name 'cjpalhdlnbpafiamejdnhcphjbkeiagm'
 
+
 Other notes:
 - robot.txt defines if scraping allowed on specific website. website.com/robot.txt
+- Random index error caused when grammar page has text "Learn Japanese vocabulary:" instead of "Learn Japanese grammar:".
+99.5% of grammar pages seem to have the latter one so even fixing by hand shouldn't be a biggie.
+
 
 To extract data using web scraping with python, you need to follow these basic steps:
 
