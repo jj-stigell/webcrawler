@@ -62,7 +62,11 @@ def current_grammar_rule(link):
         final_grammar_point = stripped_grammar_point.split('Learn Japanese grammar: ', 1)  # delete unnecessary text
         generate_sentence_cards(soup, final_grammar_point[1], grammar_table)
     except AttributeError:
-        stripped_grammar_point = "Problem deleting the advertisement, manually add the grammar explanation"
+        stripped_grammar_point = "AttributeError. Manually add the grammar explanation"
+        print(stripped_grammar_point)
+        generate_sentence_cards(soup, stripped_grammar_point, grammar_table)
+    except IndexError:
+        stripped_grammar_point = "IndexError. Manually add the grammar explanation"
         print(stripped_grammar_point)
         generate_sentence_cards(soup, stripped_grammar_point, grammar_table)
 
